@@ -6,6 +6,7 @@ class CourseTitle(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
     details = models.TextField()
+    price = models.DecimalField(decimal_places=2)
     created_on = models.DateTimeField(auto_now_add=True)
     beginners = models.BooleanField()
     # relationship between coursetitle and coursetype via the nexus model
