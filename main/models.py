@@ -20,7 +20,7 @@ class CourseType(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     details = models.TextField()
     # relationship between coursetitle and coursetype via the nexus model
-    course_titles = models.ManyToManyField('CourseTitle', through='CourseTitleTypeNexus')
+    # course_titles = models.ManyToManyField('CourseTitle', through='CourseTitleTypeNexus')
 
     def __str__(self):
         return self.name

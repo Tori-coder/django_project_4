@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1>Course List</h1>
+<div>
+    <ul>
+        {% for course in courses %}
+           <h2>{{course.title}}</h2>
+           <div>
+            <p>{{course.details}}</p>
+            <p>{{course.price}}</p>
+            <p>{{course.beginners}}</p>
+            <button>Enrol now</button>
+           </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
