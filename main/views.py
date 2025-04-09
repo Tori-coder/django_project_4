@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 
-def test(response):
-    return HttpResponse("testing")
+def index(response):
+    return render(response, 'main/base.html', {})
+
+def home(response):
+    return render(response, 'main/home.html', {})
