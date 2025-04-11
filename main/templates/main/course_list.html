@@ -8,8 +8,10 @@
            <h2>{{course.title}}</h2>
            <div>
             <p>{{course.details}}</p>
-            <p>{{course.price}}</p>
-            <p>{{course.beginners}}</p>
+            <p>Price GBP{{course.price}}</p>
+            {% if course.beginners == True %}
+                <p>Suitable for beginners</p>
+            {% endif %}
             <button>Enrol now</button>
            </div>
         {% endfor %}
