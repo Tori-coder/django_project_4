@@ -1,4 +1,5 @@
 from django import forms
+from .models import StudentProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -20,3 +21,19 @@ class StudentRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'level', 'password1', 'password2']
+
+class UserForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=25, required=True)
+    last_name = forms.CharField(max_length=25, required=True)
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+class StudentProfileForm(forms.ModelForm):
+    level = forms.ChoiceField(choices=LEVEL_CHOICES, required=False)
+
+    class Meta:
+        model = StudentProfile
+        fields = ['level']

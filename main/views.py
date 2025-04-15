@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import CourseTitle, StudentProfile
-from .forms import StudentRegistrationForm
+from .forms import StudentRegistrationForm, StudentProfileForm, UserForm
 
 def index(response):
     return render(response, 'main/base.html', {})
@@ -29,3 +29,17 @@ def register(request):
 def student_profile(request):
     profile = StudentProfile.objects.get(user=request.user)
     return render(request, 'main/profile.html', {'profile': profile})
+
+def edit_profile(request):
+    profile = StudentProfile.objects.get(user=request.user)
+    if request.method == 'GET':
+        user_form = UserForm(instance=request.user)
+        profile_form = StudentProfileForm(instance=profile)
+    else:
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = StudentProfileForm(request.POST, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('student_profile')
+    return render(request, 'main/edit_profile.html', {'user_form': user_form,'profile_form': profile_form,})
