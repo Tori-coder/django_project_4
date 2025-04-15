@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<h1>Welcome, {{ profile.user.username }}</h1>
+    <div>
+        <p>First Name {{profile.user.first_name}}</p>
+        <p>Last Name {{profile.user.last_name}}</p>
+        <p>Email {{profile.user.email}}</p>
+        <p>Level {{profile.level}}</p>
+        <button>Edit Details</button>
+        <button>Delete Student</button>
+    </div>
+</ul>
+
+{% endblock %}

@@ -26,3 +26,6 @@ def register(request):
             pass
     return render(request, 'main/register.html', {'form': form})
 
+def student_profile(request):
+    profile = StudentProfile.objects.get(user=request.user)
+    return render(request, 'main/profile.html', {'profile': profile})
