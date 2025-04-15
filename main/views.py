@@ -25,3 +25,4 @@ def register(request):
         else:
             pass
     return render(request, 'main/register.html', {'form': form})
+
