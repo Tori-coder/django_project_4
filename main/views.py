@@ -43,3 +43,8 @@ def edit_profile(request):
             profile_form.save()
             return redirect('student_profile')
     return render(request, 'main/edit_profile.html', {'user_form': user_form,'profile_form': profile_form,})
+
+def delete_profile(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('home')

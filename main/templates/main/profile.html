@@ -8,7 +8,10 @@
         <p>Email {{profile.user.email}}</p>
         <p>Level {{profile.level}}</p>
         <a href="{% url 'edit_profile' %}"><button>Edit Details</button></a>
-        <button>Delete Student</button>
+        <form method="post" action="{% url 'delete_profile' %}" onsubmit="return confirmDelete();">
+            {% csrf_token %}
+            <button type="submit">Delete Student</button>
+        </form>
     </div>
 </ul>
 
