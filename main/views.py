@@ -29,9 +29,8 @@ def register(request):
 
 def student_profile(request):
     profile = StudentProfile.objects.get(user=request.user)
-    enrolments = Enrolment.objects.filter(student=request.user)
-    courses_enrolled = [enrolment.course_title for enrolment in enrolments]
-    return render(request, 'main/profile.html', {'profile': profile, 'courses_enrolled': courses_enrolled})
+    enrolments = Enrolment.objects.filter(student=request.user).select_related('course_title')
+    return render(request, 'main/profile.html', {'profile': profile, 'enrolments': enrolments})
 
 def edit_profile(request):
     profile = StudentProfile.objects.get(user=request.user)
@@ -60,5 +59,5 @@ def course_enrol(request, course_id):
         return redirect('login')
     else:
         Enrolment.objects.create(student=request.user, course_title=course)
-        messages.success(request, f'You have successfully enrolled in {course.title}.')
+        # messages.success(request, f'You have successfully enrolled in {course.title}.')
         return redirect('student_profile')
