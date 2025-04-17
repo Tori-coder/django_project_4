@@ -7,6 +7,7 @@
         {% for course in courses %}
         <a href="{% url 'course_detail' course.id %}"><h2>{{course.title}}</h2></a>
            <div>
+            <p>{{course.details}}</p>
             <p>Price GBP{{course.price}}</p>
             {% if course.beginners == True %}
                 <p>Suitable for beginners</p>

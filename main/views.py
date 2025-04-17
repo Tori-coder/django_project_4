@@ -15,6 +15,10 @@ def course_list(request):
     print(courses)  # Debug line
     return render(request, 'main/course_list.html', {'courses':courses})
 
+def course_content(request, course_id):
+    course = CourseTitle.objects.get(id=course_id)
+    return render(request, 'main/course_content.html', {'course':course})
+
 def course_detail(request, course_id):
     course = CourseTitle.objects.get(id=course_id)
     return render(request, 'main/course_detail.html', {'course':course})
