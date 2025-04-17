@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import CourseTitle, StudentProfile
+from django.contrib import messages
+from .models import CourseTitle, StudentProfile, Enrolment
 from .forms import StudentRegistrationForm, StudentProfileForm, UserForm
 
 def index(response):
@@ -28,7 +29,9 @@ def register(request):
 
 def student_profile(request):
     profile = StudentProfile.objects.get(user=request.user)
-    return render(request, 'main/profile.html', {'profile': profile})
+    enrolments = Enrolment.objects.filter(student=request.user)
+    courses_enrolled = [enrolment.course_title for enrolment in enrolments]
+    return render(request, 'main/profile.html', {'profile': profile, 'courses_enrolled': courses_enrolled})
 
 def edit_profile(request):
     profile = StudentProfile.objects.get(user=request.user)
@@ -48,3 +51,14 @@ def delete_profile(request):
     if request.method == 'POST':
         request.user.delete()
         return redirect('home')
+    
+def course_enrol(request, course_id):
+    course = CourseTitle.objects.get(id=course_id)
+
+    # Check if the user is authenticated
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        Enrolment.objects.create(student=request.user, course_title=course)
+        messages.success(request, f'You have successfully enrolled in {course.title}.')
+        return redirect('student_profile')

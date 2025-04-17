@@ -7,6 +7,12 @@
         <p>Last Name {{profile.user.last_name}}</p>
         <p>Email {{profile.user.email}}</p>
         <p>Level {{profile.level}}</p>
+        <h2>Enrolled Courses:</h2>
+            <ul>
+                {% for course in courses_enrolled %}
+                    <li>{{ course.title }} - Enrolled on: {{ course.enrolment_set.first.enrolment_date }}</li>
+                {% endfor %}
+            </ul>
         <a href="{% url 'edit_profile' %}"><button>Edit Details</button></a>
         <form method="post" action="{% url 'delete_profile' %}" onsubmit="return confirmDelete();">
             {% csrf_token %}

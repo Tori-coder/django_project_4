@@ -12,7 +12,7 @@
             {% if course.beginners == True %}
                 <p>Suitable for beginners</p>
             {% endif %}
-            <button>Enrol now</button>
+            <a href="{% url 'enrol' course.id %}"><button>Enrol Now</button></a>
            </div>
         {% endfor %}
     </ul>
