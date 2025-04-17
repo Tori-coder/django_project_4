@@ -15,6 +15,10 @@ def course_list(request):
     print(courses)  # Debug line
     return render(request, 'main/course_list.html', {'courses':courses})
 
+def course_detail(request, course_id):
+    course = CourseTitle.objects.get(id=course_id)
+    return render(request, 'main/course_detail.html', {'course':course})
+
 def register(request):
     form = StudentRegistrationForm(request.POST)
     if request.method == 'POST':
@@ -59,5 +63,5 @@ def course_enrol(request, course_id):
         return redirect('login')
     else:
         Enrolment.objects.create(student=request.user, course_title=course)
-        # messages.success(request, f'You have successfully enrolled in {course.title}.')
+        messages.success(request, f'You have successfully enrolled in {course.title}.')
         return redirect('student_profile')
