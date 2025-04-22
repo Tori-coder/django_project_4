@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from .models import CourseTitle, StudentProfile, Enrolment
 from .forms import StudentRegistrationForm, StudentProfileForm, UserForm
+from .utils import enrolled_only
 
 def index(response):
     return render(response, 'main/base.html', {})
@@ -15,6 +16,7 @@ def course_list(request):
     print(courses)  # Debug line
     return render(request, 'main/course_list.html', {'courses':courses})
 
+@enrolled_only
 def course_content(request, course_id):
     course = CourseTitle.objects.get(id=course_id)
     return render(request, 'main/course_content.html', {'course':course})
@@ -68,4 +70,4 @@ def course_enrol(request, course_id):
     else:
         Enrolment.objects.create(student=request.user, course_title=course)
         messages.success(request, f'You have successfully enrolled in {course.title}.')
-        return redirect('student_profile')
+        return redirect('course_content')
