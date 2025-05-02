@@ -70,4 +70,4 @@ def course_enrol(request, course_id):
     else:
         Enrolment.objects.create(student=request.user, course_title=course)
         messages.success(request, f'You have successfully enrolled in {course.title}.')
-        return redirect('course_content')
+        return redirect('course_content', course_id=course.id)
