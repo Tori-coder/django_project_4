@@ -1,5 +1,5 @@
-from allauth.account.signals import user_logged_in, user_signed_up
-from allauth.socialaccount.signals import user_logged_in
+from allauth.account.signals import user_logged_in
+from allauth.socialaccount.signals import social_account_added
 from django.dispatch import receiver
 from .models import StudentProfile
 
@@ -8,7 +8,7 @@ def create_student_profile(sender, request, user, **kwargs):
     if not hasattr(user, 'studentprofile'):
         StudentProfile.objects.create(user=user, level='A1')
 
-@receiver(user_signed_up)
+@receiver(social_account_added)
 def create_student_profile(sender, request, user, **kwargs):
     if not hasattr(user, 'studentprofile'):
         StudentProfile.objects.create(user=user, level='A1')
