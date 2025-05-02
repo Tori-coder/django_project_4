@@ -13,7 +13,6 @@ def home(response):
 
 def course_list(request):
     courses = CourseTitle.objects.all()
-    print(courses)  # Debug line
     return render(request, 'main/course_list.html', {'courses':courses})
 
 @enrolled_only
@@ -68,6 +67,12 @@ def course_enrol(request, course_id):
     if not request.user.is_authenticated:
         return redirect('login')
     else:
-        Enrolment.objects.create(student=request.user, course_title=course)
-        messages.success(request, f'You have successfully enrolled in {course.title}.')
-        return redirect('course_content', course_id=course.id)
+        # Check if the user is already enrolled in the course
+        if Enrolment.objects.filter(student=request.user, course_title=course).exists():
+            messages.warning(request, f'You are already enrolled in {course.title}.')
+            return redirect('course_content', course_id=course.id)
+        else:
+            # Create new enrolment
+                Enrolment.objects.create(student=request.user, course_title=course)
+                messages.success(request, f'You have successfully enrolled in {course.title}.')
+                return redirect('course_content', course_id=course.id)
