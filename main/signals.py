@@ -1,5 +1,5 @@
-from allauth.account.signals import user_logged_in
-from allauth.socialaccount.signals import user_signed_up
+from allauth.account.signals import user_logged_in, user_signed_up
+from allauth.socialaccount.signals import user_logged_in
 from django.dispatch import receiver
 from .models import StudentProfile
 
