@@ -6,8 +6,8 @@ admin.site.register(CourseType)
 # admin.site.register(CourseTitleTypeNexus)
 
 class EnrolmentAdmin(admin.ModelAdmin):
-    enrolment_display=('student', 'course_title', 'enrolment_date')
-    enrolment_filter=('student', 'course_title')
-    search_by = ('student__username', 'course_title__title')
+    list_display=('course_title','student',  'enrolment_date')
+    list_filter=('student', 'course_title')
+    search_fields = ('student__username', 'course_title__title')
 
 admin.site.register(Enrolment, EnrolmentAdmin)
