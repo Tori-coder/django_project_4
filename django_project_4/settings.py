@@ -60,7 +60,12 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
 ]
 
-SITE_ID = 1
+# set site id for deployment or development
+if 'ON_HEROKU' in os.environ:
+    SITE_ID = 2  # heroku deployment
+else:
+    SITE_ID = 1  # local development
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
