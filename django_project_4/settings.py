@@ -80,9 +80,9 @@ INSTALLED_APPS = [
 
 # set site id for deployment or development
 if 'ON_HEROKU' in os.environ:
-    SITE_ID = 2  # heroku deployment
+    SITE_ID = 4  # heroku deployment
 else:
-    SITE_ID = 1  # local development
+    SITE_ID = 3  # local development
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
